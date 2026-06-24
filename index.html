@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="style.css">
+  <title>Paint PWA</title>
+</head>
+
+<body>
+  <canvas id="canvas"></canvas>
+
+  <div class="toolbar">
+    <input type="color" id="color">
+    <input type="range" id="size" min="1" max="30">
+    <button id="clear">Clear</button>
+  </div>
+
+  <script src="app.js"></script>
+  <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("sw.js");
+    }
+  </script>
+</body>
+</html>
