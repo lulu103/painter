@@ -6,22 +6,45 @@ canvas.height = window.innerHeight;
 
 let drawing = false;
 
-let color = document.getElementById("color");
-let size = document.getElementById("size");
+function getPos(e) {
+  if (e.touches) {
+    return {
+      x: e.touches[0].clientX,
+      y: e.touches[0].clientY
+    };
+  }
+  return {
+    x: e.clientX,
+    y: e.clientY
+  };
+}
 
-canvas.addEventListener("mousedown", () => drawing = true);
-canvas.addEventListener("mouseup", () => drawing = false);
-canvas.addEventListener("mousemove", draw);
+function start(e) {
+  drawing = true;
+  draw(e);
+}
+
+function end() {
+  drawing = false;
+}
 
 function draw(e) {
   if (!drawing) return;
 
-  ctx.fillStyle = color.value;
+  const pos = getPos(e);
+
+  ctx.fillStyle = document.getElementById("color").value;
+  const size = document.getElementById("size").value;
+
   ctx.beginPath();
-  ctx.arc(e.clientX, e.clientY, size.value, 0, Math.PI * 2);
+  ctx.arc(pos.x, pos.y, size, 0, Math.PI * 2);
   ctx.fill();
 }
 
-document.getElementById("clear").onclick = () => {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-};
+canvas.addEventListener("mousedown", start);
+canvas.addEventListener("mouseup", end);
+canvas.addEventListener("mousemove", draw);
+
+canvas.addEventListener("touchstart", start);
+canvas.addEventListener("touchend", end);
+canvas.addEventListener("touchmove", draw);
