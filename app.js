@@ -48,3 +48,6 @@ canvas.addEventListener("mousemove", draw);
 canvas.addEventListener("touchstart", start);
 canvas.addEventListener("touchend", end);
 canvas.addEventListener("touchmove", draw);
+document.getElementById("clear").addEventListener("click", () => {
+ctx.clearRect(0, 0, canvas.width, canvas.height);
+});
